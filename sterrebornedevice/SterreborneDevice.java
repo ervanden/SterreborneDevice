@@ -32,16 +32,24 @@ class SterreborneDeviceRun implements SetCommandListener, GetCommandListener //,
         // set GPIO pin corresponding to this deviceOutput to newValue
         
         boolean state=false;
+        PinState checkState;
+        
         if (newValue.equals("High")) state=true;
         if (newValue.equals("Low")) state=false;
         
         if (deviceOutput == heating) {
             System.out.println("GPIO 3 (heating) set to " + newValue);
             Gpio3.setState(state);
+            checkState=Gpio3.getState();
+            if (checkState.isLow()) System.out.println("getState returns LOW");
+            if (checkState.isHigh()) System.out.println("getState returns HIGH");       
         }
         if (deviceOutput == boiler) {
             System.out.println("GPIO 4 (boiler) set to " + newValue);
             Gpio4.setState(state);
+            checkState=Gpio4.getState();
+            if (checkState.isLow()) System.out.println("getState returns LOW");
+            if (checkState.isHigh()) System.out.println("getState returns HIGH"); 
         }
     }
 
